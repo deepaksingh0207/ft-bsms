@@ -1,0 +1,2 @@
+.loadingDotsBlack:after{content:" .";animation:dotsBlack 1s steps(5) infinite}@keyframes dotsBlack{0%,20%{color:#333;text-shadow:.25em 0 0 transparent,.5em 0 0 transparent}40%{color:#fff;text-shadow:.25em 0 0 transparent,.5em 0 0 transparent}60%{text-shadow:.25em 0 0 #333,.5em 0 0 transparent}80%,to{text-shadow:.25em 0 0 #333,.5em 0 0 #333}}
+/*# sourceMappingURL=13.656858bb.chunk.css.map */
