@@ -37,11 +37,7 @@ $time = date('his');
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')?>
     <?= $this->Html->css('milligram.min.css?'.$time) ?>
     <?= $this->Html->css('cake.css?'.$time) ?>
-        
-        
-    
-    
-        
+           
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
