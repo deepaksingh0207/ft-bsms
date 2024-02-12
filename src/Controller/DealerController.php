@@ -1,9 +1,7 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
-
 use Cake\Datasource\ConnectionManager;
 
 /**
@@ -14,8 +12,7 @@ use Cake\Datasource\ConnectionManager;
 class DealerController extends AppController
 {
 
-    public function login()
-    {
+    public function login() {
 
         $this->viewBuilder()->setLayout('login');
         //$this->layout = false; 
@@ -25,40 +22,38 @@ class DealerController extends AppController
         $products = $this->Products->find('list')->toArray();
         $this->set(compact('products'));
         $session = $this->getRequest()->getSession();
-        if ($session->read('user.id')) {
+        if($session->read('user.id')) {
             $this->redirect(array('action' => 'dashboard'));
         }
 
-        if ($this->request->is('post')) {
+        if($this->request->is('post')) {
             $result = $this->BuyerSellerUsers->find()
-                //->select(['id', 'username', 'user_type'])
-                ->where([
-                    'username' => $this->request->getData('username'),
-                    'password' => md5($this->request->getData('password'))
-                ])
+            //->select(['id', 'username', 'user_type'])
+            ->where(['username' => $this->request->getData('username'),
+                'password' => md5($this->request->getData('password'))])
                 ->limit(1);
+            
+                $result = $result->toArray();
 
-            $result = $result->toArray();
-
-            if ($result) {
-                $session = $this->getRequest()->getSession();
-                $session->write('user.username', $result[0]->username);
-                $session->write('user.id', $result[0]->id);
-                $session->write('user.user_type', $result[0]->user_type);
-                $session->write('user.details', $result[0]);
-                if ($session->read('user.user_type') == 'seller') {
-                    $this->redirect(['action' => 'seller-dashboard']);
+                if($result) {
+                    $session = $this->getRequest()->getSession();
+                    $session->write('user.username', $result[0]->username);
+                    $session->write('user.id', $result[0]->id);
+                    $session->write('user.user_type', $result[0]->user_type);
+                    $session->write('user.details', $result[0]);
+                    if($session->read('user.user_type') == 'seller') {
+                        $this->redirect(['action' => 'seller-dashboard']);
+                    } else {
+                        $this->redirect(array('controller' => 'dealer', 'action' => 'dashboard'));
+                    }
                 } else {
-                    $this->redirect(array('controller' => 'dealer', 'action' => 'dashboard'));
+                    $this->Flash->error("Invalid Login details");
                 }
-            } else {
-                $this->Flash->error("Invalid Login details");
-            }
+                
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         $session = $this->getRequest()->getSession();
         $session->destroy();
         // $this->Flash->success("You've successfully logged out.");
@@ -98,12 +93,13 @@ class DealerController extends AppController
 
     public function confirmation()
     {
+        
     }
 
-    public function dashboard()
+    public function dashboard() 
     {
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
@@ -112,14 +108,13 @@ class DealerController extends AppController
         $this->loadModel('RfqInquiries');
         $this->loadModel('Products');
 
-
+        
         $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.id', 'RfqDetails.rfq_no', 'Products.name', 'RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
+            ->select(['RfqDetails.id','RfqDetails.rfq_no','Products.name','RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
             ->contain(['Products'])
             ->leftJoin(
                 ['RfqInquiries' => '(select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id)'],
-                ['RfqInquiries.rfq_id = RfqDetails.id']
-            )
+                ['RfqInquiries.rfq_id = RfqDetails.id'])
             ->where(['RfqDetails.buyer_seller_user_id' => $session->read('user.id')]);
 
         $rfqDetails = $this->paginate($query);
@@ -132,33 +127,31 @@ class DealerController extends AppController
         when 0  then 'new'
         when 1 then 'approved'
         when 2 then 'Rejected'
-     END as 'status', count(id) total FROM `rfq_details` where buyer_seller_user_id = " . $session->read('user.id') . " group by status");
+     END as 'status', count(id) total FROM `rfq_details` where buyer_seller_user_id = ".$session->read('user.id')." group by status");
 
 
-        $rfqTotals = [];
-        foreach ($rfqCounts as $row) {
+        $rfqTotals = [];    
+        foreach($rfqCounts as $row) {
             $rfqTotals[$row['status']] = $row['total'];
         }
 
         $userDetails = $session->read('user.details');
-
-        $regionSellerCnt = $conn->execute(
-            "select count(U.id) total
+        
+        $regionSellerCnt = $conn->execute("select count(U.id) total
             from buyer_seller_users U
             where U.user_type = 'seller'
             and U.cities = '$userDetails->cities'"
         );
 
-        foreach ($regionSellerCnt as $row) {
+        foreach($regionSellerCnt as $row) {
             $regionSellerCnt = $row['total'];
         }
 
-        $totalSeller = $conn->execute(
-            "select count(U.id) total
+        $totalSeller = $conn->execute("select count(U.id) total
             from buyer_seller_users U
             where U.user_type = 'seller'"
         );
-        foreach ($totalSeller as $row) {
+        foreach($totalSeller as $row) {
             $totalSeller = $row['total'];
         }
 
@@ -170,12 +163,13 @@ class DealerController extends AppController
         $this->set('rfqsummary', $rfqsummary);
         $this->set('rfqTotals', $rfqTotals);
         $this->set('supplierCount', $supplierCount);
+        
     }
 
-    public function sellerDashboard()
+    public function sellerDashboard() 
     {
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
@@ -183,7 +177,7 @@ class DealerController extends AppController
         $this->loadModel('RfqForSellers');
         $this->loadModel('RfqInquiries');
 
-
+        
         $userType = $session->read('user.user_type');
         $productDeals = $session->read('user.details.product_deals');
 
@@ -191,24 +185,28 @@ class DealerController extends AppController
 
         $totalRfq = 0;
         $rfqResponded = 0;
-        if ($userType == 'seller') {
-            $totalRfq = $this->RfqDetails->find()->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  . $session->read("user.id") . ')'])->contain(['Products' => function ($q) use ($productDeals) {
+        if($userType == 'seller') {
+            $totalRfq = $this->RfqDetails->find()->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  .$session->read("user.id").')' ])->contain(['Products' => function ($q) use ($productDeals)  {
                 return $q->where(["Products.id IN ($productDeals)"]);
+
             }, 'Uoms'])->count();
 
-
+            
             //echo '<pre>'; print_r($this->RfqDetails); exit;
-            $rfqResponded = $this->RfqInquiries->find()->where(['RfqInquiries.inquiry' => 1, 'seller_id' => $session->read("user.id")])->count();
+            $rfqResponded = $this->RfqInquiries->find()->where(['RfqInquiries.inquiry' => 1, 'seller_id' => $session->read("user.id") ])->count();
 
-            $totalRfqs = $this->RfqDetails->find()->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  . $session->read("user.id") . ')'])->contain(['Products' => function ($q) use ($productDeals) {
+            $totalRfqs = $this->RfqDetails->find()->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  .$session->read("user.id").')' ])->contain(['Products' => function ($q) use ($productDeals)  {
                 return $q->where(["Products.id IN ($productDeals)"]);
+
             }, 'Uoms'])->count();
+
+
         }
 
         $rfqValuesByCategory = array();
         $conn = ConnectionManager::get('default');
         $countByProduct = $conn->execute("SELECT count(1) count , P.name cat, sum(RI.sub_total) total_value FROM rfq_details RD left join rfq_inquiries RI on RI.rfq_id = RD.id join products P on (P.id = RD.product_id) where RD.status =1 and product_id in ($productDeals) group by product_id");
-        foreach ($countByProduct as $row) {
+        foreach($countByProduct as $row) {
             $countByProducts[$row['cat']] = $row['count'];
             $rfqValuesByCategory[$row['cat']] = $row['total_value'];
         }
@@ -216,13 +214,14 @@ class DealerController extends AppController
         //echo '<pre>'; print_r($countByProducts); exit;
         $this->productlist();
         $this->set(compact(['totalRfq', 'rfqResponded', 'countByProducts', 'rfqValuesByCategory']));
+        
     }
 
     public function view($id = null)
     {
 
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
         $this->loadModel('RfqDetails');
@@ -233,13 +232,13 @@ class DealerController extends AppController
         ]);
 
         $attrParams = array();
-        if ($rfqDetails->uploaded_files) {
+        if($rfqDetails->uploaded_files) {
             $attrParams = json_decode($rfqDetails->uploaded_files, true);
         }
 
         $session = $this->getRequest()->getSession();
         $userType = $session->read('user.user_type');
-        if ($userType == 'seller') {
+        if($userType == 'seller') {
             $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
             $data = array();
             $data['rfq_id'] = $id;
@@ -250,10 +249,11 @@ class DealerController extends AppController
             $RfqInquiry = $this->RfqInquiries->find()->where(['inquiry' => 1, 'rfq_id' => $id, 'seller_id' => $session->read('user.id')])->first();
 
             $this->set('rfq_inquiry', $RfqInquiry);
-        } else if ($userType == 'buyer') {
-            $results = $this->RfqInquiries->find()->where(['rfq_id' => $id])->contain('BuyerSellerUsers')->toArray();
 
-            /*$data = array();
+        }  else if($userType == 'buyer')  {
+                $results = $this->RfqInquiries->find()->where(['rfq_id' => $id])->contain('BuyerSellerUsers')->toArray();
+
+                /*$data = array();
                 foreach($results as &$result) {
                     $t = array();
                     if(isset($result['inquiry_data']) && $result['inquiry_data'] != null ) {
@@ -267,17 +267,16 @@ class DealerController extends AppController
 
                     $data[] = $t;
                 } */
-            //echo '<pre>'; print_r($results); exit;
-        }
+                //echo '<pre>'; print_r($results); exit;
+        }  
 
         $this->set(compact('rfqDetails', 'attrParams', 'userType', 'results'));
     }
 
-    public function addproduct($type, $sellerId = '')
-    {
+    public function addproduct($type, $sellerId = '') {
 
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
@@ -287,28 +286,29 @@ class DealerController extends AppController
 
         $products = $this->Products->find('list')->toArray();
         $uoms = $this->Uoms->find('list')->toArray();
-
+        
         $updatedProduct = array();
 
-        if (isset($sellerId) && !empty($sellerId)) {
+        if(isset($sellerId) && !empty($sellerId)) {
             $sellerProducts = $this->BuyerSellerUsers->find()
-                ->select(['product_deals'])
-                ->where(["id in ($sellerId)"]);
+            ->select(['product_deals'])
+            ->where(["id in ($sellerId)"]);
 
-            $sellerProducts = $sellerProducts->toArray();
-            foreach ($sellerProducts as $seller) {
-                $t = explode(',', $seller->product_deals);
-                $updatedProduct = array_merge($updatedProduct, $t);
-            }
-
-
-            $tempProducts = array();
-            foreach ($products as $k => $v) {
-                if (in_array($k, $updatedProduct)) {
-                    $tempProducts[$k] = $v;
+                $sellerProducts = $sellerProducts->toArray();
+                foreach($sellerProducts as $seller) {
+                    $t = explode(',', $seller->product_deals);
+                    $updatedProduct = array_merge($updatedProduct, $t);
                 }
-            }
-            $products = $tempProducts;
+                
+
+                $tempProducts = array();
+                foreach($products as $k => $v) {
+                    if(in_array($k, $updatedProduct)) {
+                        $tempProducts[$k] = $v;
+                    }
+                }
+                $products = $tempProducts;
+            
         }
 
         $this->set('seller_id', $sellerId);
@@ -319,25 +319,25 @@ class DealerController extends AppController
             $session = $this->getRequest()->getSession();
             $userId = $session->read('user.id');
             $this->loadModel("RfqDetails");
-
+            
             //$RfqDetail = $this->RfqDetails->newEmptyEntity();
             $request = $this->request->getData();
             $data = array();
-
+            
 
             $conn = ConnectionManager::get('default');
             $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=$userId");
 
             foreach ($maxrfq as $maxid) {
-                $maxRfqId = $maxid['maxrfq'] + 1;
-            }
+                $maxRfqId = $maxid['maxrfq'] + 1; 
+            }   
 
             //echo $maxRfqId;
             //echo '<pre>'; print_r($request); exit;
 
             $sellers = array();
 
-            if (empty($request['seller_id'])) {
+            if(empty($request['seller_id'])) {
                 unset($request['seller_id']);
             } else {
                 $sellers = explode(',', $request['seller_id']);
@@ -348,12 +348,12 @@ class DealerController extends AppController
 
             foreach ($request as $key => $row) {
                 $record = array();
-                if (isset($row["files"])) {
+                if(isset($row["files"])) {
                     $productImages = $row["files"];
                     $uploads["files"] = array();
                     // file uploaded
-                    foreach ($productImages as $productImage) {
-                        $fileName = time() . '_' . $productImage->getClientFilename();
+                    foreach($productImages as $productImage) {
+                        $fileName = time().'_'.$productImage->getClientFilename();
                         $fileType = $productImage->getClientMediaType();
 
                         if ($fileName && ($fileType == "application/pdf" || $fileType == "image/*")) {
@@ -366,15 +366,15 @@ class DealerController extends AppController
                     $record['uploaded_files'] = json_encode($uploads["files"]);
                 }
 
-                if (isset($row['seller']) && !empty($row['seller'])) {
+                if(isset($row['seller']) && !empty($row['seller'])) {
                     $sellers = array_merge($sellers, $row['seller']);
                 }
 
-
-                foreach ($row['product_id'] as $product) {
+                
+                foreach($row['product_id'] as $product) {
                     $record['buyer_seller_user_id'] = $userId;
                     $record['rfq_no'] = $maxRfqId;
-                    $record['product_id'] = $product; //$row['product_id'];
+                    $record['product_id'] = $product;//$row['product_id'];
                     $record['product_sub_category_id'] = $row['product_sub_category_id'];
                     $record['part_name'] = $row['part_name'];
                     $record['qty'] = $row['qty'];
@@ -386,15 +386,16 @@ class DealerController extends AppController
 
                     $data[] = $record;
                 }
+
             }
 
             //echo '<pre>' ;print_r($sellers); exit;
             $RfqDetail = $this->RfqDetails->newEntities($data);
-            if ($this->RfqDetails->saveMany($RfqDetail)) {
-
+            if($this->RfqDetails->saveMany($RfqDetail)) {
+            
                 $this->loadModel('RfqForSellers');
                 $rfqSellers = array();
-                foreach ($sellers as $seller) {
+                foreach($sellers as $seller) {
                     $tmp = array();
                     $tmp['rfq_no'] = $maxRfqId;
                     $tmp['seller_id'] = $seller;
@@ -408,7 +409,7 @@ class DealerController extends AppController
                 $this->Flash->success(__('The product has been saved.'));
                 return $this->redirect(['action' => 'dashboard']);
             }
-
+       
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
     }
@@ -421,21 +422,21 @@ class DealerController extends AppController
         unset($rfqDetailExisting['id']);
         unset($rfqDetailExisting['added_date']);
         unset($rfqDetailExisting['updated_date']);
-
+        
         $conn = ConnectionManager::get('default');
-        $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=" . $rfqDetailExisting['buyer_seller_user_id']);
+        $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=".$rfqDetailExisting['buyer_seller_user_id']);
 
         foreach ($maxrfq as $maxid) {
-            $maxRfqId = $maxid['maxrfq'] + 1;
+            $maxRfqId = $maxid['maxrfq'] + 1; 
         }
 
         $rfqDetailExisting['rfq_no'] = $maxRfqId;
 
         $rfqDetail = $this->RfqDetails->newEmptyEntity();
-
+        
         $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $rfqDetailExisting);
         if ($this->RfqDetails->save($rfqDetail)) {
-            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' . $maxRfqId));
+            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
 
             return $this->redirect(['action' => 'dashboard']);
         }
@@ -454,7 +455,7 @@ class DealerController extends AppController
         ]);
 
         //echo '<pre>'; print_r($rfqDetail); exit;
-
+        
         $products = $this->RfqDetails->Products->find('list')->all();
         $uoms = $this->RfqDetails->Uoms->find('list')->all();
         $this->set(compact('rfqDetail', 'products', 'uoms'));
@@ -464,38 +465,38 @@ class DealerController extends AppController
             $session = $this->getRequest()->getSession();
             $userId = $session->read('user.id');
             $request = $this->request->getData();
-
+            
             //echo '<pre>' ; print_r($request); exit;
 
             $data = array();
-
+            
             $conn = ConnectionManager::get('default');
             $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=$userId");
 
             foreach ($maxrfq as $maxid) {
-                $maxRfqId = $maxid['maxrfq'] + 1;
-            }
+                $maxRfqId = $maxid['maxrfq'] + 1; 
+            }   
 
             foreach ($request as $key => $row) {
                 $record = array();
 
-                if (isset($row["files"])) {
+                if(isset($row["files"])) {
                     $productImages = $row["files"];
                     $uploads["files"] = array();
                     // file uploaded
-                    foreach ($productImages as $productImage) {
-                        $fileName = time() . '_' . $productImage->getClientFilename();
+                    foreach($productImages as $productImage) {
+                        $fileName = time().'_'.$productImage->getClientFilename();
                         $fileType = $productImage->getClientMediaType();
 
                         //if ($fileType == "application/pdf" || $fileType == "image/*") {
-                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
-                        $productImage->moveTo($imagePath);
-                        $uploads["files"][] = "uploads/" . $fileName;
+                            $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                            $productImage->moveTo($imagePath);
+                            $uploads["files"][] = "uploads/" . $fileName;
                         //}
                     }
                     $record['uploaded_files'] = json_encode($uploads["files"]);
                 }
-
+            
                 $record['buyer_seller_user_id'] = $userId;
                 $record['rfq_no'] = $maxRfqId;
                 $record['product_id'] = $row['product_id'];
@@ -506,9 +507,10 @@ class DealerController extends AppController
                 $record['remarks'] = $row['remarks'];
                 $record['make'] = $row['make'];
                 $record['added_date'] = date('Y-m-d H:i:s');
-
+                
 
                 $data[] = $record;
+
             }
             //echo '<pre>' ; print_r($data); exit;
 
@@ -517,20 +519,20 @@ class DealerController extends AppController
             //$rfqDetail = $this->RfqDetails->newEmptyEntity();
             //$rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $request);
             $RfqDetail = $this->RfqDetails->newEntities($data);
-            if ($this->RfqDetails->saveMany($RfqDetail)) {
-                //if ($this->RfqDetails->save($rfqDetail)) {
-                $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' . $maxRfqId));
+            if($this->RfqDetails->saveMany($RfqDetail)) {
+        //if ($this->RfqDetails->save($rfqDetail)) {
+            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
 
-                return $this->redirect(['action' => 'dashboard']);
-            }
-            $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+            return $this->redirect(['action' => 'dashboard']);
+        }
+        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+
         }
     }
 
-    public function productlist()
-    {
+    public function productlist() {
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
         $this->loadModel('BuyerSellerUsers');
@@ -538,65 +540,64 @@ class DealerController extends AppController
         $this->loadModel('RfqDetails');
         $this->loadModel('RfqDetails');
         $this->loadModel('RfqInquiries');
-
+        
         $products = $this->Products->find('list')->toArray();
         $sellerProducts = $this->BuyerSellerUsers->find()
-            ->select(['product_deals'])
-            ->where(['id' => $session->read("user.id")])
+        ->select(['product_deals'])
+        ->where(['id' => $session->read("user.id")])
             ->limit(1);
 
-        $sellerProducts = $sellerProducts->toArray();
-        $sellerProducts = explode(',', $sellerProducts[0]->product_deals);
+            $sellerProducts = $sellerProducts->toArray();
+            $sellerProducts = explode(',', $sellerProducts[0]->product_deals);
 
-        $tempProducts = array();
-        foreach ($products as $k => $v) {
-            if (in_array($k, $sellerProducts)) {
-                $tempProducts[$k] = $v;
+            $tempProducts = array();
+            foreach($products as $k => $v) {
+                if(in_array($k, $sellerProducts)) {
+                    $tempProducts[$k] = $v;
+                }
             }
-        }
-        $products = $tempProducts;
+            $products = $tempProducts;
 
-
+        
         $userType = $session->read('user.user_type');
         $productDeals = $session->read('user.details.product_deals');
 
         if ($this->request->is('post')) {
             $request = $this->request->getData();
-            if (!empty($request['product_id'])) {
+            if(!empty($request['product_id'])) {
                 $productDeals = $request['product_id'];
             }
         }
 
 
         $rfqDetails = array();
-        if ($userType == 'seller') {
+        if($userType == 'seller') {
 
             $rfqDetails = $this->RfqDetails->find()
-                ->where([
-                    'RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  . $session->read("user.id") . ')',
-                    'RfqDetails.id NOT IN (SELECT rfq_id FROM rfq_inquiries where inquiry=1 and seller_id=' . $session->read("user.id") . ')'
-                ])
-                ->contain(['Products' => function ($q) use ($productDeals) {
-                    return $q->where(["Products.id IN ($productDeals)"]);
-                }, 'Uoms'])->toList();
+            ->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  .$session->read("user.id").')' ,
+            'RfqDetails.id NOT IN (SELECT rfq_id FROM rfq_inquiries where inquiry=1 and seller_id='.$session->read("user.id").')'
+             ])
+            ->contain(['Products' => function ($q) use ($productDeals)  {
+                return $q->where(["Products.id IN ($productDeals)"]);
+
+            }, 'Uoms'])->toList();
 
             //echo '<pre>';print_r($rfqDetails); exit;
 
             $rfqRespondedDetails = $this->RfqDetails->find()
-                ->leftJoin(
-                    ['RfqInquiries' => 'rfq_inquiries'],
-                    ['RfqInquiries.rfq_id = RfqDetails.id']
-                )
-                ->where(['RfqDetails.status' => 1, 'RfqInquiries.inquiry' => 1, 'RfqInquiries.seller_id' => $session->read("user.id")])->contain(['Products' => function ($q) use ($productDeals) {
-                    return $q->where(["Products.id IN ($productDeals)"]);
-                }, 'Uoms'])->toList();
+            ->leftJoin(['RfqInquiries' => 'rfq_inquiries'], 
+            ['RfqInquiries.rfq_id = RfqDetails.id'])
+            ->where(['RfqDetails.status' => 1, 'RfqInquiries.inquiry' => 1, 'RfqInquiries.seller_id' => $session->read("user.id")])->contain(['Products' => function ($q) use ($productDeals)  {
+                return $q->where(["Products.id IN ($productDeals)"]);
+
+            }, 'Uoms'])->toList();
 
             //echo '<pre>';print_r($rfqRespondedDetails); exit;
-
+            
             foreach ($rfqDetails as &$rfqDetail) {
-                if ($rfqDetail['uploaded_files']) {
+                if($rfqDetail['uploaded_files']) {
                     $files = json_decode($rfqDetail['uploaded_files'], true);
-                    foreach ($files as $file) {
+                    foreach($files as $file) {
                         $rfqDetail['image'] = $file;
                         break;
                     }
@@ -609,18 +610,17 @@ class DealerController extends AppController
         $this->set(compact('rfqRespondedDetails', 'rfqDetails', 'products'));
     }
 
-    public function inquiry($id = null)
-    {
+    public function inquiry($id=null) {
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
         $session = $this->getRequest()->getSession();
         $userType = $session->read('user.user_type');
-        if ($userType == 'seller') {
-            if ($this->request->is('post')) {
+        if($userType == 'seller') {
+            if($this->request->is('post')) {
                 //print_r($this->request->getData()); exit;
-
+            
                 $this->loadModel('RfqInquiries');
                 $request = array();
                 $request['rfq_id'] = $id;
@@ -631,8 +631,8 @@ class DealerController extends AppController
                 $RfqInquiry->rate = $this->request->getData('rate');
                 $RfqInquiry->sub_total = $this->request->getData('sub_total');
                 $RfqInquiry->delivery_date = $this->request->getData('delivery_date');
-
-                if ($this->RfqInquiries->save($RfqInquiry)) {
+                
+                if($this->RfqInquiries->save($RfqInquiry)) {
                     $this->Flash->success(__('Inquiry send to Buyer.'));
                     return $this->redirect(['action' => 'productlist']);
                 }
@@ -642,22 +642,21 @@ class DealerController extends AppController
         $this->set('userType', $userType);
     }
 
-    public function search()
-    {
+    public function search(){
 
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
-        $request = $this->request->getData();
+        $request = $this->request->getData();  
         $total = 0;
         $searchData = array();
         $sellerIds = array();
 
-        if ($this->request->is('post') && strlen($request['q'])) {
+        if ($this->request->is('post') && strlen($request['q']) ) { 
             $conn = ConnectionManager::get('default');
-            if (isset($request['type']) && $request['type'] == 'seller') {
+            if(isset($request['type']) && $request['type'] == 'seller') {
                 $searchData = $conn->execute("select U.*, P.name product_name
                 from buyer_seller_users U
                 INNER join products P on (P.id in (U.product_deals))
@@ -670,69 +669,68 @@ class DealerController extends AppController
                 where U.user_type = 'seller'
                 and P.name like '%$request[q]%'");
             }
-
+            
             $total = count($searchData);
 
-            foreach ($searchData as $row) {
+            foreach($searchData as $row) {
                 $sellerIds[] = $row['id'];
             }
         }
 
         $this->set('total', $total);
-        $this->set('q', isset($request['q']) ? $request['q'] : '');
+        $this->set('q', $request['q']);
         $this->set('data', $searchData);
-        $this->set('type', isset($request['type']) ? $request['type'] : '');
-        $this->set('seller_ids', implode(',', $sellerIds));
+        $this->set('type', $request['type']);
+        $this->set('seller_ids', implode(',',$sellerIds));
+        
+
     }
-    
 
 
-    public function regionalsearch()
-    {
+    public function regionalsearch(){
 
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
-        $request = $this->request->getData();
+        $request = $this->request->getData();  
         $total = 0;
         $searchData = array();
         $sellerIds = array();
 
-
+        
         $userDetails = $session->read('user.details');
         $conn = ConnectionManager::get('default');
-        $searchData = $conn->execute(
-            "select U.*, P.name product_name
+        $searchData = $conn->execute("select U.*, P.name product_name
         from buyer_seller_users U
         INNER join products P on (P.id in (U.product_deals))
         where U.user_type = 'seller'
         and U.cities = '$userDetails->cities'"
         );
-
+        
         $total = count($searchData);
-        foreach ($searchData as $row) {
+        foreach($searchData as $row) {
             $sellerIds[] = $row['id'];
         }
 
         $this->set('total', $total);
         $this->set('data', $searchData);
-        $this->set('seller_ids', implode(',', $sellerIds));
+        $this->set('seller_ids', implode(',',$sellerIds));
+
     }
+    
 
-
-    public function rfqList()
-    {
+    public function rfqList() {
 
         $session = $this->getRequest()->getSession();
-        if (!$session->check('user.id')) {
+        if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
         }
 
         $conn = ConnectionManager::get('default');
         $this->loadModel('RfqDetails');
-
+        
         $query = $this->RfqDetails->find()
             ->contain(['Products'])
             ->where(['RfqDetails.buyer_seller_user_id' => $session->read('user.id')]);
@@ -740,5 +738,8 @@ class DealerController extends AppController
         $rfqDetails = $this->paginate($query);
 
         $this->set('rfqDetails', $rfqDetails);
+
+
     }
+
 }

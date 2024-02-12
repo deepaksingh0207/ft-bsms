@@ -55,148 +55,22 @@
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
       }
-
+      
     }
 
-    #slider select {
-      width: 100%;
-      height: 48px;
-      padding: 0px 0px 0px 0px;
-      border: 1px solid #D4E7FE;
-      border-radius: 5px;
-      color: #002678;
-      font-weight: 500;
-      outline: none;
-      margin: 4px 0px 0px 0px;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      box-sizing: border-box;
-      outline-offset: 0px;
-      text-rendering: auto;
-      letter-spacing: normal;
-      word-spacing: normal;
-      text-transform: none;
-      text-indent: 0px;
-      text-shadow: none;
-      display: inline-block;
-      text-align: start;
-      appearance: auto;
-      -webkit-rtl-ordering: logical;
-      cursor: text;
-      background-color: field;
-    }
-
-
-    #slider #search-blk {
-      width: 100%;
-      height: 48px;
-      padding: 0px 40px 0px 15px;
-      border: 1px solid #D4E7FE;
-      border-radius: 5px;
-      color: #002678;
-      font-weight: 500;
-      outline: none;
-      margin: 4px 0px 0px 0px;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      box-sizing: border-box;
-      outline-offset: 0px;
-      text-rendering: auto;
-      letter-spacing: normal;
-      word-spacing: normal;
-      text-transform: none;
-      text-indent: 0px;
-      text-shadow: none;
-      display: inline-block;
-      text-align: start;
-      appearance: auto;
-      -webkit-rtl-ordering: logical;
-      cursor: text;
-      background-color: field;
-    }
-
-    .button.button-reveal.button-large {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-
-    :active,
-    :focus {
-      outline: none !important;
-    }
-
-    .form-control:focus {
-      color: #212529;
-      background-color: #fff;
-      border-color: #86b7fe;
-      outline: 0;
-      box-shadow: unset !important;
-    }
-
-    h1 {
-      font-size: 36px;
-    }
-
-    .button-dirtygreen:not(.button-border) {
-      background-color: #1693A5 !important;
-    }
-
-    .button.button-rounded {
-      border-radius: 3px;
-    }
-
-    .button.button-large {
-      padding: 8px 26px;
-      font-size: 1rem;
-      line-height: 30px;
-      margin: 5px 0 0 0;
-    }
-
-    .button.button-reveal span {
-      display: inline-block;
-      position: relative;
-      left: 0;
-    }
-
-    .button {
-      color: #fff;
-      border: none;
-    }
-
-    .button:hover {
-      background-color: #444;
-      color: #FFF;
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-    }
-
-    .button.button-reveal:hover i {
-      left: 0;
-    }
-
-    .button.button-reveal.text-end:hover i {
-      left: auto;
-      right: 0;
-    }
-
-    .button.button-reveal.button-large i {
-      left: -38px;
-      width: 38px;
-    }
   </style>
   <meta charset="utf-8">
   <link rel="icon" href="./favicon.ico">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Sign up now! Unlock the best platform to discover freight rates, execute your shipments &amp; track containers">
+  <meta name="description"
+    content="Sign up now! Unlock the best platform to discover freight rates, execute your shipments &amp; track containers">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/all.min.css">
   <link href="<?= $this->Url->build('/') ?>css/5.7cec8de0.chunk.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/bootstrap.css">
   <link href="<?= $this->Url->build('/') ?>css/main.26d266c0.chunk.css" rel="stylesheet">
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/0.5bbd83f8.chunk.js"></script>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/1.a9e5058d.chunk.js"></script>
@@ -213,7 +87,8 @@
 
       <div class="v2container">
         <div class="ant-row">
-          <div class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
+          <div
+            class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <!-- <div class="others">
               <p class="others__text1">&nbsp;<br>&nbsp;</p>
               <p class="others__text2">&nbsp;</p>
@@ -239,52 +114,11 @@
               </div>
               <div>&nbsp;</div>
             </div> -->
-
-
-            <div class="row mt-3">
-              <div class="col-2">
-                <div class="row">
-
-                </div>
-              </div>
-
-              <div class="col-12" id="slider" style='background-image: url("<?= $this->Url->build('/') ?>./img/bg2.jpg");background-size:cover;background-repeat: no-repeat;'>
-                <form id="search-form" class="p-4">
-                  <div class="row" style="padding: 0px 5px 10px;">
-                    <div class="col-8 pt-3">
-                      <h1 class="mb-3">Find The Right
-                        <br><span style="color: lightcoral;">Supplier</span> Around You
-                      </h1>
-                    </div>
-                    <div class="col-4"></div>
-                    <div class="col-3">
-                      <select name="type" id="" class="form-control">
-                        <option value="category">Category</option>
-                        <option value="seller">Supplier</option>
-
-                      </select>
-                    </div>
-                    <div class="col-5">
-                      <input type="text" class="global" name="q" id="search-blk" required="required" placeholder="What are you looking for?">
-                    </div>
-                    <div class="col-3">
-                      <button label="Search" class="button button-rounded button-reveal button-large button-dirtygreen text-end" type="submit">
-                        <i class="icon-search"></i><span>Search</span>
-                      </button>
-                    </div>
-                    <div class="col-12 mt-3" id="slider1">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-2"></div>
-            </div>
-
-            <!-- <div class="row" style="padding-top: 11.5vh;">
+            <div class="row" style="padding-top: 11.5vh;">
               <div class="col-12" style="text-align-last: center;">
                 <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 59vh;">
               </div>
-            </div> -->
+            </div>
 
             <div class="faq">
               <h4 class="faq__header">Welcome to FTSPL Supplier Portal
@@ -293,15 +127,12 @@
 
                 <p><span class="faq__question" style="margin-left: 0px;font-size: x-large; font-weight: 500;">A single
                     window
-                    digital interface and communication platform for supplier assessment and
-                    onboarding- Towards Co-creating Governance.
+                    digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.
                   </span>
                 </p>
-                <p class="faq__answer" style="display: none;">ftspl unifies information about your
-                  shipments served by
+                <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by
                   multiple carriers and
-                  forwarders into a single window, giving you a holistic picture of your shipments
-                  instantly.</p>
+                  forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
                 <p></p>
               </div>
               <div>
@@ -328,13 +159,11 @@
                     <div class="buyer-btn custom-control custom-radio" style="
                       margin-right: 31px">
                       <input type="radio" id="mobile_btn" class="custom-control-input" name="a" value="">
-                      <label class="custom-control-label" for="buyer"><span>Login with
-                          mobile</span></label>
+                      <label class="custom-control-label" for="buyer"><span>Login with mobile</span></label>
                     </div>
                     <div class="approver-btn custom-control custom-radio ">
                       <input type="radio" class="custom-control-input" id="email_btn" name="a" checked="" value="">
-                      <label class="custom-control-label" for="approver"><span>Login with
-                          Email</span></label>
+                      <label class="custom-control-label" for="approver"><span>Login with Email</span></label>
                     </div>
                   </div>
 
@@ -346,10 +175,14 @@
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
                     <div style="width: 100%;">
                       <div class="material-textfield">
-                        <div class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
-                          <div class="ant-select-selector"><span class="ant-select-selection-search"><input autocomplete="off" type="search" class="ant-select-selection-search-input" role="combobox" aria-haspopup="listbox" aria-owns="rc_select_0_list" aria-autocomplete="list" aria-controls="rc_select_0_list" aria-activedescendant="rc_select_0_list_0" value="" id="rc_select_0"></span></div>
-                        </div><label class="material-label" style="left: 0px;">Workspace
-                          url</label>
+                        <div
+                          class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
+                          <div class="ant-select-selector"><span class="ant-select-selection-search"><input
+                                autocomplete="off" type="search" class="ant-select-selection-search-input"
+                                role="combobox" aria-haspopup="listbox" aria-owns="rc_select_0_list"
+                                aria-autocomplete="list" aria-controls="rc_select_0_list"
+                                aria-activedescendant="rc_select_0_list_0" value="" id="rc_select_0"></span></div>
+                        </div><label class="material-label" style="left: 0px;">Workspace url</label>
                         <p class="material-rightLabel">.fts-pl.com</p>
                       </div>
                     </div>
@@ -357,22 +190,27 @@
                       <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value=""><label class="material-label" style="left: 0px;">Username/Email</label></div>
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield signin-textfield"><input class="material-input " placeholder="Enter Password" type="password" name="password" value=""><label class="material-label" style="left: 0px;">Password</label>
-                        <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true" style="cursor: pointer;"></i></p>
-                        <p class="material-rightBottomLabel material-rightBottomLabel__danger">
-                          Forgot Password ?</p>
+                      <div class="material-textfield signin-textfield"><input class="material-input "
+                          placeholder="Enter Password" type="password" name="password" value=""><label
+                          class="material-label" style="left: 0px;">Password</label>
+                        <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
+                            style="cursor: pointer;"></i></p>
+                        <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
                       </div>
                     </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
-                    <p class="signupform__signin--dontHaveAccount">Don't have an account?<a href="http://vekpro.ftspl.in/ft-bsms/dealer/registration" style="cursor: pointer;">Signup Now</a></p>
+                    <p class="signupform__signin--dontHaveAccount">Don't have an account?<a href="http://vekpro.ftspl.in/ft-bsms/dealer/registration"
+                        style="cursor: pointer;">Signup Now</a></p>
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;"><a href="mailto: support@fts-pl.com">Help</a> <a href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a>
+                    <p style="text-align: center;"><a href="mailto: support@fts-pl.com">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a>
 
                   </div>
                   <div class="row" id="mobile_login" style="width:100%; display: none;">
                     <?= $this->Form->create() ?>
                     <div class="input-group mb-3">
                       <div class="material-textfield">
-                        <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10" name="mobile" pattern="[0-9]{10}" value="">
+                        <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
+                          name="mobile" pattern="[0-9]{10}" value="">
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
                       </div>
                     </div>
@@ -389,7 +227,8 @@
                   <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
                   <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
                   <div class="input-group mb-3">
-                    <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6" pattern="[0-9]{6}">
+                    <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6"
+                      pattern="[0-9]{6}">
                     <div class="input-group-append">
                       <div class="input-group-text">
                         <span class="fas fa-password"></span>
@@ -418,8 +257,8 @@
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
   <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
   <script>
-    $(document).ready(function() {
-      $(document).on("change", "#mobile_btn", function() {
+    $(document).ready(function () {
+      $(document).on("change", "#mobile_btn", function () {
         $('#email_login').hide();
         $('#mobile_login').show();
         $("#mobile_login_otp").hide();
@@ -427,61 +266,27 @@
 
       });
 
-// supplier around call ajax file in login page 
-
-      $('#search-form').on('submit', function(e) {
-        e.preventDefault();
-        var formData = $(this).serialize();
-        $.ajax({
-          type: 'POST',
-          headers: {
-            'X-CSRF-Token': $('[name="_csrfToken"]').val()
-          },
-          url: '<?php echo $this->Url->build(array('controller' => 'api/api', 'action' => 'search')); ?>',
-          data: formData,
-          datatype: 'json',
-          cache: false,
-          success: function(data) {
-
-            var response = JSON.parse(data);
-
-            $("#slider1").html(response.message);
-            $('.ant-card-body').focus();
-
-
-
-
-          }
-
-        });
-      });
-      $(document).on("change", "#email_btn", function() {
+      $(document).on("change", "#email_btn", function () {
         $('#email_login').show();
         $('#mobile_login').hide();
         $("#mobile_login_otp").hide();
         $('#loginby').val('email');
       });
 
-      $(document).on("change, keyup", ".sentence", function() {
+      $(document).on("change, keyup", ".sentence", function () {
         $(this).val($(this).val().toLowerCase())
       });
 
-
-
-      $("#getotp").click(function() {
+      $("#getotp").click(function () {
         var request = $.ajax({
           url: "users/get-otp",
           method: "POST",
-          headers: {
-            'X-CSRF-Token': $('[name="_csrfToken"]').val()
-          },
-          data: {
-            mobile: $("#mobile").val()
-          },
+          headers: { 'X-CSRF-Token': $('[name="_csrfToken"]').val() },
+          data: { mobile: $("#mobile").val() },
           dataType: "json"
         });
 
-        request.done(function(response) {
+        request.done(function (response) {
           if (response.status == 'success') {
             $("#mobile_login_otp").show();
             $("#mobile_login").hide();
@@ -491,7 +296,7 @@
           }
         });
 
-        request.fail(function(jqXHR, textStatus) {
+        request.fail(function (jqXHR, textStatus) {
           console.log("Request failed: " + textStatus);
         });
       });

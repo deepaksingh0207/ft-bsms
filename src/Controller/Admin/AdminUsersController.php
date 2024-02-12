@@ -21,8 +21,7 @@ class AdminUsersController extends AdminAppController
 {
     public function login() {
         $this->loadModel("AdminUsers");
-
-
+        
         $session = $this->getRequest()->getSession();
         if($session->read('id')) {
             $this->redirect(array('controller' => 'adminusers', 'action' => 'index'));

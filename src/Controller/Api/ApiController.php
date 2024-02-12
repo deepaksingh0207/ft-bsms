@@ -254,43 +254,4 @@ class ApiController extends ApiAppController
 
         echo json_encode($result);  exit;
     }
-
-    public function search()
-    {   
-        $response = array();
-        $response['status'] = 0;
-        $response['message'] = 'Empty request';
-        $request = $this->request->getData();  
-
-
-        $searchData = array();
-
-        $conn = ConnectionManager::get('default');
-            if (isset($request['type']) && $request['type'] == 'seller') {
-                $searchData = $conn->execute("select U.*, P.name product_name
-                from buyer_seller_users U
-                INNER join products P on (P.id in (U.product_deals))
-                where U.user_type = 'seller'
-                and U.company_name like '%$request[q]%'");
-            } else {
-                $searchData = $conn->execute("select U.*, P.name product_name
-                from buyer_seller_users U
-                INNER join products P on (P.id in (U.product_deals))
-                where U.user_type = 'seller'
-                and P.name like '%$request[q]%'");
-            }
-
-            
-            $total = count($searchData);
-
-            $response['status'] = 1;
-            $response['message'] = '<p style="font-size:20px;margin:6px 0;color: #616161;">We have found <strong style="color:#ff9900d9;">'.$total.'</strong> no. of supplier for your product - <span style="color:#ff9900d9;"> '.$request['q'].' </span> .</p>';
-        
-
-        
-        echo json_encode($response);
-       
-        
-    }
-
 }

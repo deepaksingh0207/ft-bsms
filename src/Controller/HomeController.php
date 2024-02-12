@@ -53,9 +53,8 @@ class HomeController extends AppController
             $this->set('q', $request['q']);
             $this->set('type', $request['type']);
 
-         } 
-        //else {
-        //     return $this->redirect(['action' => 'index']);
-        // }
+        } else {
+            return $this->redirect(['action' => 'index']);
+        }
     }
 }
