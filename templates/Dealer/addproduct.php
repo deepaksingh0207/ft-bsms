@@ -5,103 +5,112 @@
  */
 ?>
 <section id="content">
-   
-            </div>
-            
-            <div class="col-lg-12">
-                <h3>Request for Quotation</h3>
-                <?= $this->Flash->render('auth') ?>
-                <?= $this->Form->create(null, array('type' => 'file')) ?>
-                <div class="card-footer">
-                        <button label="Login" class="button button-rounded button-reveal button-large button-red text-end bin"
+
+    </div>
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="col-4"><h4 class="mb-0">Request for Quotation</h4></div>
+                <div class="col-8">
+                    <?= $this->Flash->render('auth') ?>
+                    <?= $this->Form->create(null, array('type' => 'file')) ?>
+                    <div class="d-flex justify-content-end">
+                        <button label="Login" class="mr-2 button button-rounded button-reveal button-large button-red text-end bin"
                             type="button" onclick="deleteform()" style="display:none;">
                             <i class="icon-line2-trash"></i>
                             <span>DELETE</span>
                         </button>
-                        <button label="Login" class="button button-rounded button-reveal button-large button-purple"
-                            type="button" onclick="addform()">
+                        <button label="Login" class="mr-2 button button-rounded button-reveal button-large button-purple" type="button"
+                            onclick="addform()">
                             <i class="icon-line-plus"></i>
                             <span>ADD</span>
                         </button>
                         <button label="Login"
-                            class="button button-rounded button-reveal button-large button-yellow button-light text-end"
+                            class="mr-2 button button-rounded button-reveal button-large button-yellow button-light text-end"
                             type="submit" style="float:right;">
                             <i class="icon-line-save"></i>
                             <span>SAVE RFQ</span>
                         </button>
                     </div>
-                <?= $this->Form->control('seller_id', array( 'type' => 'hidden', 'value' => $seller_id)); ?>
-                <div class="card">
-                    <div class="card-body" id="mulform">
-                        <div class="row" id="RFQ0">
-                            <div class="col-12">
-                                <h5><b>PRODUCT 1 <div style="outline-style: ;"></div></b></h5>
-                            </div>
-                            <div class="col-4">
-                            <?= $this->Form->control('0.product_id', array('required' => true, 'type' => 'select','options' => $products,'empty' => 'Select',  'class' => 'form-control product', 'label' => 'Category', 'data-id' => '0', 'multiple' => true)); ?>
-                            </div>
-                            <div class="col-4" id="0-others" style="display: none;"></div>
-                            <div class="col-4">
-                            <?= $this->Form->control('0.seller', array('id' => '0-seller', 'required' => false, 'type' => 'select', 'empty' => 'Select',  'class' => 'form-control', 'label' => 'Supplier', 'data-id' => '0', 'multiple' => true)); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.product_sub_category_id', array('required' => true, 'type' => 'text','options' => array(), 'empty' => 'Select', 'id' => 'product_sub_category_id', 'class' => 'form-control','label' => 'Sub Category')); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.part_name', ['required' => true, 'class' => 'form-control','maxlength' => 100]); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.qty', ['required' => true, 'class' => 'form-control', 'type' => 'number' ]); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.uom_code', array('required' => true, 'class' => 'form-control','type' => 'select','options' => $uoms,'empty' => 'Select', 'id' => 'uom', 'label' =>'UOM')); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.make', ['required' => true, 'maxlength' => 100, 'class' => 'form-control']); ?>
-                            </div>
-                            <div class="col-4">
-                                <?= $this->Form->control('0.remarks', ['type' => 'textarea', 'required' => true, 'escape' => false, 'rows' => '1', 'cols' => '5', 'maxlength' => 200, 'class' => 'form-control']); ?>
-                            </div>
-                            <div class="col-4">
-                                <label>Attachment</label>
-                                <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
-                <?= $this->Form->end() ?>
+            </div>
+            <div class="card-body">
+            <?= $this->Form->control('seller_id', array('type' => 'hidden', 'value' => $seller_id)); ?>
+            <div id="mulform">
+                <div class="row" id="RFQ0">
+                    <div class="col-12">
+                        <h5 class="mt-2"><b>PRODUCT 1 <div style="outline-style: ;"></div></b></h5>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.product_id', array('required' => true, 'type' => 'select', 'options' => $products, 'empty' => 'Select', 'class' => 'form-control product', 'label' => 'Category', 'data-id' => '0', 'multiple' => true)); ?>
+                    </div>
+                    <div class="col-4" id="0-others" style="display: none;"></div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.seller', array('id' => '0-seller', 'required' => false, 'type' => 'select', 'empty' => 'Select', 'class' => 'form-control', 'label' => 'Supplier', 'data-id' => '0', 'multiple' => true)); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.product_sub_category_id', array('required' => true, 'type' => 'text', 'options' => array(), 'empty' => 'Select', 'id' => 'product_sub_category_id', 'class' => 'form-control', 'label' => 'Sub Category')); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.part_name', ['required' => true, 'class' => 'form-control', 'maxlength' => 100]); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.qty', ['required' => true, 'class' => 'form-control', 'type' => 'number']); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.uom_code', array('required' => true, 'class' => 'form-control', 'type' => 'select', 'options' => $uoms, 'empty' => 'Select', 'id' => 'uom', 'label' => 'UOM')); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.make', ['required' => true, 'maxlength' => 100, 'class' => 'form-control']); ?>
+                    </div>
+                    <div class="col-4">
+                        <?= $this->Form->control('0.remarks', ['type' => 'textarea', 'required' => true, 'escape' => false, 'rows' => '1', 'cols' => '5', 'maxlength' => 200, 'class' => 'form-control']); ?>
+                    </div>
+                    <div class="col-4">
+                        <label>Attachment</label>
+                        <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
+                    </div>
+                </div>
+            </div>
+
+        <?= $this->Form->end() ?>
             </div>
         </div>
+
+        
+        
+    </div>
+    </div>
     </div>
 </section>
 <script>
     var form_ID = [0]
-    var category = [<?php foreach($products as $prd): ?> '<?= h($prd) ?>',<?php endforeach; ?>]
+    var category = [<?php foreach ($products as $prd): ?> '<?= h($prd) ?>', <?php endforeach; ?>]
 
     function addform() {
         var id = form_ID[form_ID.length - 1] + 1;
         addrow(id);
         form_ID.push(id);
         category_datalist(id);
-        if (form_ID.length > 1){$(".bin").show();}
+        if (form_ID.length > 1) { $(".bin").show(); }
     }
 
-    function deleteform(){
+    function deleteform() {
         var id = form_ID[form_ID.length - 1];
         form_ID.pop(id);
         $("#RFQ" + id).remove();
-        if (form_ID.length < 2){$(".bin").hide();}
+        if (form_ID.length < 2) { $(".bin").hide(); }
     }
 
     function addrow(id) {
         $("#mulform").prepend(`<div class="row" id="RFQ` + (id) + `">
                             <div class="col-12">
-                            <br><h5><b>PRODUCT `+ (id + 1) + ` <div style="outline-style: solid;"></div></b></h5>
+                            <br><h5><b>PRODUCT `+ (id + 1) + ` </b></h5>
                             </div>
                             <div class="col-4">
                                 <label for="`+ id + `-product">Product :</label>
-                                <select name="`+ id + `[product_id]" required="required" class="form-control product" data-id="`+ id + `" id="`+ id + `-product-id">
+                                <select name="`+ id + `[product_id]" required="required" class="form-control product" data-id="` + id + `" id="` + id + `-product-id">
                                 <option value="">Select</option>
                                 <option value="1196">ABS</option>
                                 <option value="1197">ADVERSETISEMENT HOLDER</option>
@@ -240,27 +249,28 @@
         var id = $(this).data('id');
         getSupplierList(id, value)
         if (value == "0") {
-            $("#" + id + "-others").prepend(`<div class="input text required" id="`+id+`_others_container"><label for="` + id + `-other">Name Category</label><input type="text" name="` + id + `[other]" required="required" options="" empty="Select" id="`+ id +`_other_id" class="form-control" aria-required="true"></div>`).show();
-        } else { $("#" + id + "-others").html('');
+            $("#" + id + "-others").prepend(`<div class="input text required" id="` + id + `_others_container"><label for="` + id + `-other">Name Category</label><input type="text" name="` + id + `[other]" required="required" options="" empty="Select" id="` + id + `_other_id" class="form-control" aria-required="true"></div>`).show();
+        } else {
+            $("#" + id + "-others").html('');
         }
     });
 
 
     function getSupplierList(id, category) {
         $.ajax({
-          type: "GET",
-          url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'api/api', 'action' => 'get-vendor-by-category')); ?>/" +category,
-          data: $("#notifyForm").serialize(),
-          dataType: 'json',
-          success: function (response) {
-            console.log(response);
-            
-            $("#" + id + "-seller").html('');
-            $("#" + id + "-seller").html('<option value="">Please Select</option>');
-            for(var i = 0; i < response.length; i++) {
-                $("#" + id + "-seller").append('<option value="'+response[i].key+'">'+response[i].value+'</option>');
+            type: "GET",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'api/api', 'action' => 'get-vendor-by-category')); ?>/" + category,
+            data: $("#notifyForm").serialize(),
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+
+                $("#" + id + "-seller").html('');
+                $("#" + id + "-seller").html('<option value="">Please Select</option>');
+                for (var i = 0; i < response.length; i++) {
+                    $("#" + id + "-seller").append('<option value="' + response[i].key + '">' + response[i].value + '</option>');
+                }
             }
-          }
         });
     }
 

@@ -1,0 +1,20 @@
+.sidebar { background-color: #fff !important;}
+
+[class*=sidebar-dark] .brand-link { border-bottom: 1px solid #eee !important;}
+
+/* .brand-link img { float: left !important;} */
+
+.nav-item .nav-link { color: #606375 !important;}
+
+.nav-link i { font-size: .95rem !important;}
+
+.nav-link { padding-left: 0.6rem !important;}
+
+.brand-link img { padding-left: .6rem !important;}
+
+.nav-link {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.table tbody tr  { vertical-align: middle !important;}

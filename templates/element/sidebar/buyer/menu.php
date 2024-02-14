@@ -12,10 +12,10 @@ $dashactive = ($controller == 'dealer' && $action == 'dashboard') ? 'active' : '
 
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dealer', 'action' => 'dashboard'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-chart-line nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dealer', 'action' => 'dashboard'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>RFQ List</p>'), ['controller' => 'dealer', 'action' => 'rfq-list'], ['class' => "nav-link $rfqlistctive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-clipboard-list nav-icon"></i><p>RFQ List</p>'), ['controller' => 'dealer', 'action' => 'rfq-list'], ['class' => "nav-link $rfqlistctive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">
