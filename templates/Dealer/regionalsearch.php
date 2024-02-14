@@ -5,22 +5,29 @@
  */
 ?>
 <style>
-    .h1, h1{
-        font-size:1.5rem
+    .h1,
+    h1 {
+        font-size: 1.5rem
     }
-    .card-body{
+
+    /* .card-body{
         padding:0rem;
-    }
-    .table td, .table th{
+    } */
+    /* .table td, .table th{
         text-align:center
+    } */
+    .table tbody td {
+        padding: 0.75rem 1.5rem !important;
     }
-    .table{
-        background-color:white
+
+    .table {
+        background-color: white
     }
-    .table td, .table th{
+
+    /* .table td, .table th{
         padding:0rem
-    }
-    </style>
+    } */
+</style>
 <section id="content">
     <!-- <div class="row p-2">
         <div class="col-3 p-0">
@@ -38,75 +45,79 @@
                 </div>
             </div>
         </div> -->
-        <div class="col-12 p-0">
-            <div class="card">
-                <div class="card-body">
-                    
+    <div class="col-12 p-0">
+        <div class="card">
+            <div class="card-body">
+
                 <div class="col-8" id="slider">
-        
-        <div class="row ">
-            <div class="col-12 pt-4">
-                <h1 class="mb-1">Regional Suplier</h1>
+
+                    <div class="row ">
+                        <div class="col-12">
+                            <h1 class="mb-1">Regional Suplier</h1>
+                        </div>
+                        <div class="col-4"></div>
+
+                    </div>
+                </div>
             </div>
-            <div class="col-4"></div>
-            
         </div>
-        </div>      
-            </div>
-        </div>
-        
-            <?php if (isset($q) && strlen($q)) :?>
+
+        <?php if (isset($q) && strlen($q)): ?>
             <div class="col-8" id="slider">
-                <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;"><?= $total ?></strong> no. of supplier for your product - <span style="color:#ff9900d9;"><?= $q ?></span>. </p>
+                <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;">
+                        <?= $total ?>
+                    </strong> no. of supplier for your product - <span style="color:#ff9900d9;">
+                        <?= $q ?>
+                    </span>. </p>
             </div>
-            <?php endif; ?>
+        <?php endif; ?>
 
-            <?php if ($total > 0) : ?>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Supplier</th>
-                                <th>Product</th>
-                                <th>City</th>
-                                <th>Contact</th>
-                                <th>
-                                    <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer/<?=$seller_ids?>">
-                                        Send RFQ(All)
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data as $row): ?>
-                            <tr>
-                                <td>
-                                    <?= h($row['company_name']) ?>
-                                </td>
-                                <td>
-                                    <?= h($row['product_name']) ?>
-                                </td>
-                                <td>
-                                    <?= h($row['cities']) ?>
-                                </td>
-                                <td>
-                                    <?= h($row['contact']) ?>
-                                </td>
-                                <td>
-                                    <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer/<?=$row['id']?>">
-                                        Send RFQ
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <?php endif ?>
+        <?php if ($total > 0): ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Supplier</th>
+                        <th>Product</th>
+                        <th>City</th>
+                        <th>Contact</th>
+                        <th>
+                            <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer/<?= $seller_ids ?>">
+                                Send RFQ(All)
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data as $row): ?>
+                        <tr>
+                            <td>
+                                <?= h($row['company_name']) ?>
+                            </td>
+                            <td>
+                                <?= h($row['product_name']) ?>
+                            </td>
+                            <td>
+                                <?= h($row['cities']) ?>
+                            </td>
+                            <td>
+                                <?= h($row['contact']) ?>
+                            </td>
+                            <td>
+                                <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer/<?= $row['id'] ?>">
+                                    Send RFQ
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif ?>
 
-        </div>
+    </div>
 
-        
 
-        <!-- <div class="col-9 p-0">
+
+    <!-- <div class="col-9 p-0">
             <img src="<?= $this->Url->build('/') ?>img/base.png" style="float: right;width: 84%;">
         </div> -->
     </div>

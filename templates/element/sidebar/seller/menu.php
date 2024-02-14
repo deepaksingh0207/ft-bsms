@@ -7,10 +7,10 @@ $dashactive = '';
 ?>
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dealer', 'action' => 'seller-dashboard'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-chart-line nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dealer', 'action' => 'seller-dashboard'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>RFQ List</p>'), ['controller' => 'dealer', 'action' => 'productlist'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-clipboard-list nav-icon"></i><p>RFQ List</p>'), ['controller' => 'dealer', 'action' => 'productlist'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

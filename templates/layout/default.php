@@ -46,6 +46,7 @@
     
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
+    <?= $this->Html->css('header.css') ?>
     
 
     <!-- jQuery -->
@@ -74,11 +75,11 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
+        <aside  class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
-                style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+                style="background-color:#ffffff; text-align-last:left;">
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '150', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
             <div class="sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
