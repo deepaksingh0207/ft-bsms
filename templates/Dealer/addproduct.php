@@ -55,10 +55,10 @@
                     <div class="col-4">
                         <?= $this->Form->control('0.part_name', ['required' => true, 'class' => 'form-control', 'maxlength' => 100]); ?>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <?= $this->Form->control('0.qty', ['required' => true, 'class' => 'form-control', 'type' => 'number']); ?>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <?= $this->Form->control('0.uom_code', array('required' => true, 'class' => 'form-control', 'type' => 'select', 'options' => $uoms, 'empty' => 'Select', 'id' => 'uom', 'label' => 'UOM')); ?>
                     </div>
                     <div class="col-4">
