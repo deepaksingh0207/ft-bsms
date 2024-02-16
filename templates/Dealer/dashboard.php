@@ -56,10 +56,10 @@
     background-Color: lightgrey
   }
 
-  .main-footer {
+  /* .main-footer {
     padding: 0rem;
     margin-top: 25px
-  }
+  } */
 
   .mt-4,
   .my-4 {

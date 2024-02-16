@@ -4,6 +4,16 @@
  * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
  */
 ?>
+
+<style>
+    .select2-search textarea { width: 97% !important; border: none !important;}
+
+    .select2-container--default .select2-selection--multiple { border: 1px solid #ced4da !important; height: 38px !important;}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
 <section id="content">
 
     </div>
@@ -27,7 +37,7 @@
                             <span>ADD</span>
                         </button>
                         <button label="Login"
-                            class="mr-2 button button-rounded button-reveal button-large button-yellow button-light text-end"
+                            class="button button-rounded button-reveal button-large button-yellow button-light text-end"
                             type="submit" style="float:right;">
                             <i class="icon-line-save"></i>
                             <span>SAVE RFQ</span>
@@ -43,11 +53,11 @@
                         <h5 class="mt-2"><b>PRODUCT 1 <div style="outline-style: ;"></div></b></h5>
                     </div>
                     <div class="col-4">
-                        <?= $this->Form->control('0.product_id', array('required' => true, 'type' => 'select', 'options' => $products, 'empty' => 'Select', 'class' => 'form-control product', 'label' => 'Category', 'data-id' => '0', 'multiple' => true)); ?>
+                        <?= $this->Form->control('0.product_id', array('required' => true, 'type' => 'select', 'options' => $products, 'empty' => 'Select', 'class' => 'form-control dropdown product', 'label' => 'Category', 'data-id' => '0', 'multiple' => true)); ?>
                     </div>
                     <div class="col-4" id="0-others" style="display: none;"></div>
                     <div class="col-4">
-                        <?= $this->Form->control('0.seller', array('id' => '0-seller', 'required' => false, 'type' => 'select', 'empty' => 'Select', 'class' => 'form-control', 'label' => 'Supplier', 'data-id' => '0', 'multiple' => true)); ?>
+                        <?= $this->Form->control('0.seller', array('id' => '0-seller', 'required' => false, 'type' => 'select', 'empty' => 'Select', 'class' => 'form-control dropdown', 'label' => 'Supplier', 'data-id' => '0', 'multiple' => true)); ?>
                     </div>
                     <div class="col-4">
                         <?= $this->Form->control('0.product_sub_category_id', array('required' => true, 'type' => 'text', 'options' => array(), 'empty' => 'Select', 'id' => 'product_sub_category_id', 'class' => 'form-control', 'label' => 'Sub Category')); ?>
@@ -274,4 +284,10 @@
         });
     }
 
+</script>
+
+<script>
+        $(document).ready(function() {
+            $('.dropdown').select2();
+        });
 </script>

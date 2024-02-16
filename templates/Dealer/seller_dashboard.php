@@ -60,15 +60,15 @@
     background-Color: lightgrey
   }
 
-  .main-footer {
+  /* .main-footer {
     padding: 0rem;
     margin-top: 25px
-  }
+  } */
 
-  .mt-4,
+  /* .mt-4,
   .my-4 {
     margin-top: 0.5rem !important
-  }
+  } */
 
 
 
@@ -91,18 +91,34 @@
 
   }
 
-  .table> :not(caption)>*>* {
+  /* .table> :not(caption)>*>* {
     padding: 0rem
-  }
+  } */
 
   .card .card-header {
     padding-top: .85rem !important;
     padding-bottom: .25rem !important;
   }
+
+  .table td, .table th { border-top: 1px solid #f4f4f4 !important;}
+
+  .table tbody tr:hover {
+    background-color: #f4f4f4 !important;
+  }
+
+  .table tbody tr {
+  transition: background-color .5s ease !important;
+}
+
+  .card-header h3,.card-header h4,.card-header h5,.card-header h6, .card-header h1, .card-header h2 { color: #004B88 !important;}
+
+  .table thead th { color: #004B88 !important;}
+
+  .actions a { color: #fff !important; background-color: #004B88 !important; padding: 5px 14px !important; border-radius: 4px !important; font-size: .85rem !important; text-transform: uppercase;}
 </style>
 <section id="content">
 
-  <div class="row mt-4">
+  <div class="row mt-3">
 
     <div class="col-sm-12 col-lg-3">
       <div class="card">

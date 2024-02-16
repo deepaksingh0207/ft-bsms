@@ -6,6 +6,24 @@
 ?>
 <style>
     .table tbody td { padding: 0.25rem 1.5rem !important;}
+
+    .table td, .table th { border-top: 1px solid #f4f4f4 !important;}
+
+  .table tbody tr:hover {
+    background-color: #f4f4f4 !important;
+  }
+
+  .table tbody tr {
+  transition: background-color .5s ease !important;
+}
+
+  .card-header h3,.card-header h4,.card-header h5,.card-header h6, .card-header h1, .card-header h2 { color: #004B88 !important;}
+
+  .table thead th { color: #004B88 !important;}
+
+  .btn-info { background-color: #004B88 !important;}
+
+  .actions a { color: #fff !important; background-color: #004B88 !important; padding: 5px 14px !important; border-radius: 4px !important; font-size: .85rem !important; text-transform: uppercase;}
 </style>
 <section id="content">
     <div>

@@ -53,7 +53,7 @@
 
                     <div class="row ">
                         <div class="col-12">
-                            <h1 class="mb-1">Regional Suplier</h1>
+                            <h1 class="mb-0">Regional Suplier</h1>
                         </div>
                         <div class="col-4"></div>
 
