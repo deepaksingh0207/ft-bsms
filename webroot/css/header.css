@@ -4,9 +4,11 @@
 
 /* .brand-link img { float: left !important;} */
 
-.nav-item .nav-link { color: #606375 !important;}
+.nav-item .nav-link { color: #787672 !important;}
 
-.nav-link i { font-size: .95rem !important;}
+/* .nav-item .nav-link p { font-size: .9rem !important;} */
+
+.nav-link i { font-size: .85rem !important;}
 
 .nav-link { padding-left: 0.6rem !important;}
 
@@ -18,3 +20,5 @@
 }
 
 .table tbody tr  { vertical-align: middle !important;}
+
+.nav-sidebar .nav-item>.nav-link { margin-bottom: .5rem !important;}
