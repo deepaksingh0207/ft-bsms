@@ -6,22 +6,31 @@
     .table tbody td {
         padding: 0.75rem 1.5rem !important;
     }
+
+    button { background-color: #004B88 !important;}
+
+    .table th, .table td { border-top: 1px solid #f4f4f4 !important;}
+    .table th,h3 { color: #004B88 !important;}
+    .btn-secondary {background-color: #004B88 !important;}
+    ..btn-secondary:hover { background-color: #fff !important; color: #004B88 !important; border: 1px solid #004B88 !important; box-shadow: none !important;}
+    .btn-secondary:hover, .btn.bg-gradient-secondary:hover { box-shadow: none !important;}
 </style>
 
 <?php ?>
 
 
 <section id="content">
-    <div class="container clearfix">
+    <div class="clearfix">
         <div class="row">
             <!-- <div class="col-3">
                 <img src="<?= $this->Url->build('/') ?>webroot/img/sale.jpg" alt="ftspl">
             </div> -->
-            <div class="col-12 pl-0">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                <div class="card-header"><h3 class="mb-0">RFQ View</h3></div>
+                    <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-15">
+                            <div class="pl-0">
                                 <table class="table">
                                     <tr>
                                         <th>
@@ -91,7 +100,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="2" style="padding-left:0 !important; ">
                                             <?php if (isset($attrParams[0])): ?>
                                                 <div class="col-3" style="align-self: center;">
                                                     <img src="<?= $this->Url->build('/') . $attrParams[0] ?>"

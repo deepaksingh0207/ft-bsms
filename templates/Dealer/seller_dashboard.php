@@ -73,7 +73,7 @@
 
 
   .card-title {
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
     font-family: system-ui;
   }
 
@@ -241,7 +241,7 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <h5>RFQ List</h5>
+        <h4>RFQ List</h4>
       </div>
       <div class="card-body">
         <table class="table">

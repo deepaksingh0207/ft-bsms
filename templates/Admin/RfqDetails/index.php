@@ -4,9 +4,10 @@
  * @var \App\Model\Entity\RfqDetail[]|\Cake\Collection\CollectionInterface $rfqDetails
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
 <div class="rfqDetails index content">
     <!-- <?= $this->Html->link(__('New Rfq Detail'), ['action' => 'add'], ['class' => 'button float-right']) ?> -->
-    <h3><?= __('Rfq Details') ?></h3>
+    <h3 style="color:#004B88 !important"><?= __('Rfq Details') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>

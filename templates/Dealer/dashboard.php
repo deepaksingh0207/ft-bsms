@@ -69,7 +69,7 @@
 
 
   .card-title {
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
     font-family: system-ui;
   }
 
@@ -98,7 +98,7 @@
     padding: 0rem
   }
 
-  .table td, .table th { border-top: 1px solid #f4f4f4 !important;}
+  .table td { border-top: 1px solid #f4f4f4 !important;}
 
   .table tbody tr:hover {
     background-color: #f4f4f4 !important;
@@ -296,8 +296,9 @@
     </div>
 
 
-    <div class="col-12 p-0">
+    <div class="col-12">
       <div class="card">
+        <div class="card-header"><h3 class="mb-3 mt-3 ml-3">RFQ Lists</h3></div>
         <div class="card-body">
 
           <table class="table">
@@ -363,8 +364,14 @@
         </ul>
         <!-- <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p> -->
         </div>
-        <br>
-        <?php if (count($rfqsummary) > 0): ?>
+        
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card">
+          <div class="card-header"><h3 class="mb-3 mt-3 ml-3">Seller Lists</h3></div>
+            <div class="card-body">
+            <?php if (count($rfqsummary) > 0): ?>
           <table class="table">
             <thead>
               <tr>
@@ -396,9 +403,13 @@
             </tbody>
           </table>
         <?php endif ?>
+            </div>
       </div>
+      
     </div>
+    
   </div>
+  
 
   <!-- <div class="col-9 p-0">
             <img src="<?= $this->Url->build('/') ?>img/base.png" style="float: right;width: 84%;">

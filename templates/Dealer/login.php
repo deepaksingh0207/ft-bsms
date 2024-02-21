@@ -36,6 +36,10 @@
       cursor: pointer;
     }
 
+    .btn__get-started-btn { background-color: #004B88 !important}
+
+    .otherdetails-container { padding-left: 50px;}
+
     .anticon-spin::before,
     .anticon-spin {
       display: inline-block;
@@ -114,7 +118,7 @@
               </div>
               <div>&nbsp;</div>
             </div> -->
-            <div class="row" style="padding-top: 11.5vh;">
+            <div class="row">
               <div class="col-12" style="text-align-last: center;">
                 <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 59vh;">
               </div>

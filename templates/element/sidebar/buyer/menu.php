@@ -30,6 +30,10 @@ $dashactive = ($controller == 'dealer' && $action == 'dashboard') ? 'active' : '
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Regional Supplier</p>'), ['controller' => 'dealer', 'action' => 'regionalsearch', 'buyer'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
+<li class="nav-item menu-open">
+    <?= $this->Html->link(__('<i class="fa fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'Profiles', 'action' => 'profile'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+</li>
+
 <!-- 
 <li class="nav-item <?= $temvenmenuopen ?>">
   <a href="#" class="nav-link  <?= $temvenactive ?>">
