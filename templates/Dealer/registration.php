@@ -120,6 +120,10 @@
                                                     'class' => 'form-control',
                                                 ]) ?>
                     </div>
+                    <div class="col-3 mt-3">
+                        <label>Attachment (Logo)</label>
+                        <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
+                    </div>
                     <div class="col-3 mt-4 pt-4">
                         <?= $this->Form->button(__('Submit'), [
                                             'label' => 'Signup',

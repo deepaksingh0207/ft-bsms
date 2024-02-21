@@ -80,7 +80,11 @@
                         <?= $this->Form->control('0.remarks', ['type' => 'textarea', 'required' => true, 'escape' => false, 'rows' => '1', 'cols' => '5', 'maxlength' => 200, 'class' => 'form-control']); ?>
                     </div>
                     <div class="col-3">
-                        <label>Attachment</label>
+                        <label>Attachment (Document Image)</label>
+                        <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
+                    </div>
+                    <div class="col-3">
+                        <label>Attachment (Document PDF)</label>
                         <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
                     </div>
                 </div>
@@ -247,8 +251,12 @@
                             <div class="col-3">
                                 <div class="input textarea required"><label for="`+ id + `-remarks">Remarks</label><textarea name="` + id + `[remarks]" class="form-control" required="required" rows="1" cols="5" maxlength="2` + id + `` + id + `" id="` + id + `-remarks" aria-required="true"></textarea></div>                            </div>
                             <div class="col-3">
-                                <label>Attachment</label>
-                                <div class="input file"><input type="file" name="`+ id + `[files][]" class="form-control" multiple="multiple" id="` + id + `-files"></div></div></div>
+                                <label>Attachment (Document Image)</label>
+                                <div class="input file"><input type="file" name="`+ id + `[files][]" class="form-control" multiple="multiple" id="` + id + `-files"></div></div>
+                                <div class="col-3">
+                                <label>Attachment (Document PDF)</label>
+                                <div class="input file"><input type="file" name="`+ id + `[files][]" class="form-control" multiple="multiple" id="` + id + `-files"></div></div></div>    
+                                </div>
                         `);
     };
 
