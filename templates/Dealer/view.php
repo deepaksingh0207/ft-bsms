@@ -7,13 +7,14 @@
         padding: 0.75rem 1.5rem !important;
     }
 
-    button { background-color: #004B88 !important;}
+    button,.btn-primary { background-color: #004B88 !important;}
 
     .table th, .table td { border-top: 1px solid #f4f4f4 !important;}
     .table th,h3 { color: #004B88 !important;}
     .btn-secondary {background-color: #004B88 !important;}
     ..btn-secondary:hover { background-color: #fff !important; color: #004B88 !important; border: 1px solid #004B88 !important; box-shadow: none !important;}
     .btn-secondary:hover, .btn.bg-gradient-secondary:hover { box-shadow: none !important;}
+    .btn { margin-bottom: 0 !important;}
 </style>
 
 <?php ?>
@@ -31,164 +32,164 @@
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="pl-0">
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            <?= __('RFQ No.') ?>
-                                        </th>
-                                        <td>
-                                            <?= h($rfqDetails->rfq_no) ?>
-                                            <?php if ($userType == 'buyer'): ?>
-                                                <span style="margin-left:20px;">
-                                                    <?= $this->Html->link(__('Copy'), ['action' => 'copy-preview', $rfqDetails->rfq_no]) ?>
-                                                    <span>
-                                                    <?php endif; ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('Product Category') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->has('product') ? $rfqDetails->product->name : '' ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('Sub Category') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->has('product_sub_category') ? $rfqDetails->product_sub_category->name : '' ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('Make') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->make ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('Part Name') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->part_name ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('Quantity') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->qty ?>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>
-                                            <?= __('UOM') ?>
-                                        </th>
-                                        <td>
-                                            <?= $rfqDetails->has('uom') ? $rfqDetails->uom->description : '' ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="padding-left:0 !important; ">
+                                <!-- <table class="table"> -->
+                                <table class="mt-2 table table-bordered" id="rfqDetailsTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="w-25"><?= __('RFQ No.') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('Product Category') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('Sub Category') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('Make') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('Part Name') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('Quantity') ?>
+                                            </th>
+                                            <th>
+                                                <?= __('UOM') ?>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <?= h($rfqDetails->rfq_no) ?>
+                                                <?php if ($userType == 'buyer'): ?>
+                                                    <span class="ml-2">
+                                                        <?= $this->Html->link(__('Copy'), ['action' => 'copy-preview', $rfqDetails->rfq_no], ['class' => 'btn btn-primary btn-sm']) ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->has('product') ? $rfqDetails->product->name : '' ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->has('product_sub_category') ? $rfqDetails->product_sub_category->name : '' ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->make ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->part_name ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->qty ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->has('uom') ? $rfqDetails->uom->description : '' ?>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                    <!-- <tr> -->
+                                        <!-- <td colspan="2" style="padding-left:0 !important; "> -->
                                             <?php if (isset($attrParams[0])): ?>
                                                 <div class="col-3" style="align-self: center;">
                                                     <img src="<?= $this->Url->build('/') . $attrParams[0] ?>"
                                                         style="width:100%;" />
                                                 </div>
                                             <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($userType == 'buyer'): ?>
-                                            <table class="table" id="response_table" class="display nowrap"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>RFQ No.</th>
-                                                        <th>Category</th>
-                                                        <th>Company</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Amount</th>
-                                                        <th>Delivery Date</th>
-                                                        <th>respond Date</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($results as $key => $val): ?>
-
-                                                        <tr>
-                                                            <td>
-                                                                <?= $rfqDetails->rfq_no ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $rfqDetails->has('product') ? $rfqDetails->product->name : '' ?>
-                                                            </td>
-
-                                                            <td>
-                                                                <?= $val['buyer_seller_user']->company_name ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $val['qty'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $val['rate'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $val['sub_total'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $val['delivery_date'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <?= $val['created_date'] ?>
-                                                            </td>
-                                                        </tr>
-
-                                                    <?php endforeach; ?>
-                                                </tbody>
-
-                                            </table>
-                                        <?php endif; ?>
-                                    </tr>
-                                </table>
+                                        <!-- </td>
+                                    </tr> -->
+                                    <!-- <tr> -->
+                                        
+                                        
+                                    <!-- </tr> -->
+                                <!-- </table> -->
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-12">
+                <div class="card">
+                    <!-- <div class="card-header">
+                        
+                    </div> -->
+                    <div class="card-body">
+                        <?php if ($userType == 'buyer'): ?>
+                            <table class="table table-bordered" id="response_table" class="display nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>RFQ No.</th>
+                                        <th>Category</th>
+                                        <th>Company</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Delivery Date</th>
+                                        <th>respond Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($results as $key => $val): ?>
+            
+                                        <tr>
+                                            <td>
+                                                <?= $rfqDetails->rfq_no ?>
+                                            </td>
+                                            <td>
+                                                <?= $rfqDetails->has('product') ? $rfqDetails->product->name : '' ?>
+                                            </td>
+            
+                                            <td>
+                                                <?= $val['buyer_seller_user']->company_name ?>
+                                            </td>
+                                            <td>
+                                                <?= $val['qty'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $val['rate'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $val['sub_total'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $val['delivery_date'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $val['created_date'] ?>
+                                            </td>
+                                        </tr>
+            
+                                    <?php endforeach; ?>
+                                </tbody>
+            
+                            </table>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
         </div>
         <?php if ($userType == 'seller'): ?>
 
-            <?php if ($rfq_inquiry): ?>
+                <?php if ($rfq_inquiry): ?>
 
-                <table class="table">
-                    <tr>
-                        <th>Quantity</th>
-                        <th>Rate</th>
-                        <th>Total Amount</th>
-                        <th>Delivery Date</th>
-                        <th>respond Date</th>
-                    </tr>
+                        <table class="table">
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Total Amount</th>
+                                <th>Delivery Date</th>
+                                <th>respond Date</th>
+                            </tr>
 
-                    <tr>
-                        <td>
-                            <?= $rfq_inquiry->qty ?>
-                        </td>
-                        <td>
-                            <?= $rfq_inquiry->rate ?>
+                            <tr>
+                                <td>
+                                    <?= $rfq_inquiry->qty ?>
+                                </td>
+                                <td>
+                                    <?= $rfq_inquiry->rate ?>
                         </td>
                         <td>
                             <?= $rfq_inquiry->sub_total ?>
