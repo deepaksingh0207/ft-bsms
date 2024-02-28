@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
 <style>
     .h1,
     h1 {
@@ -47,23 +48,14 @@
         </div> -->
     <div class="col-12 p-0">
         <div class="card">
-            <div class="card-body">
+            <div class="card-header"><h1 class="mb-0">Regional Suplier</h1></div>
+            <div class="card-body pt-0">
 
-                <div class="col-8" id="slider">
+                <!-- <div class="col-8" id="slider">
 
-                    <div class="row ">
-                        <div class="col-12">
-                            <h1 class="mb-0">Regional Suplier</h1>
-                        </div>
-                        <div class="col-4"></div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <?php if (isset($q) && strlen($q)): ?>
-            <div class="col-8" id="slider">
+                </div> -->
+                <?php if (isset($q) && strlen($q)): ?>
+            <div class="" id="slider">
                 <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;">
                         <?= $total ?>
                     </strong> no. of supplier for your product - <span style="color:#ff9900d9;">
@@ -112,6 +104,10 @@
                 </tbody>
             </table>
         <?php endif ?>
+            </div>
+        </div>
+
+        
 
     </div>
 

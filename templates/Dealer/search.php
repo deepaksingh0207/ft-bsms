@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
+<style>
+    .button { background-color: #004B88 !important;}
+</style>
 <section id="content">
     <!-- <div class="row p-2">
         <div class="col-3 p-0">
@@ -89,10 +93,7 @@
                     </div>
                     </form>
                 </div>
-            </div>
-        </div>
-
-        <?php if (isset($q) && strlen($q)): ?>
+                <?php if (isset($q) && strlen($q)): ?>
             <div class="col-8" id="slider">
                 <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;">
                         <?= $total ?>
@@ -144,6 +145,10 @@
                 </tbody>
             </table>
         <?php endif ?>
+            </div>
+            
+        </div>
+
     </div>
 
 

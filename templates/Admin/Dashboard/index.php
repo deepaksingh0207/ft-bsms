@@ -4,8 +4,10 @@
  * @var \App\Model\Entity\AdminUser[]|\Cake\Collection\CollectionInterface $adminUsers
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
+
 <div class="adminUsers index content">
-    <h3><?= __('Dashboard') ?></h3>
+    <h3 style="color:#004B88 !important"><?= __('Dashboard') ?></h3>
     <div class="table-responsive">
     <table>
             <thead>

@@ -4,6 +4,11 @@
  * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
  */
 ?>
+<style>
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header { margin-left: 0 !important;}
+    .layout-fixed .main-sidebar { display: none !important; }
+    .submit_btn { background-color: #004B88 !important;}
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -115,10 +120,14 @@
                                                     'class' => 'form-control',
                                                 ]) ?>
                     </div>
+                    <div class="col-3 mt-3">
+                        <label>Attachment (Logo)</label>
+                        <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
+                    </div>
                     <div class="col-3 mt-4 pt-4">
                         <?= $this->Form->button(__('Submit'), [
                                             'label' => 'Signup',
-                                            'class' => 'btn btn-danger',
+                                            'class' => 'submit_btn btn btn-info',
                                         ]); ?>
                     </div>
                 </div>

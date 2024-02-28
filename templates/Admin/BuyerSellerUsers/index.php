@@ -4,9 +4,11 @@
  * @var \App\Model\Entity\BuyerSellerUser[]|\Cake\Collection\CollectionInterface $buyerSellerUsers
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
+
 <div class="buyerSellerUsers index content">
-    <?= $this->Html->link(__('New Buyer Seller User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Buyer Seller Users') ?></h3>
+    <?= $this->Html->link(__('New Buyer Seller User'), ['action' => 'add'], ['class' => 'button float-right new_user']) ?>
+    <h3 style="color:#004B88 !important"><?= __('Buyer Seller Users') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>

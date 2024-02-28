@@ -4,9 +4,11 @@
  * @var \App\Model\Entity\AdminUser[]|\Cake\Collection\CollectionInterface $adminUsers
  */
 ?>
+<?= $this->Html->css('custom.css') ?>
+
 <div class="adminUsers index content">
-    <?= $this->Html->link(__('New Admin User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Admin Users') ?></h3>
+    <?= $this->Html->link(__('New Admin User'), ['action' => 'add'], ['class' => 'button float-right new_user']) ?>
+    <h3 style="color:#004B88 !important"><?= __('Admin Users') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
