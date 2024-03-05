@@ -22,8 +22,16 @@ class RfqInquiriesFixture extends TestFixture
                 'id' => 1,
                 'rfq_id' => 1,
                 'seller_id' => 1,
+                'qty' => 1.5,
+                'rate' => 1.5,
+                'discount' => 1.5,
+                'sub_total' => 1.5,
+                'delivery_date' => '2024-02-28',
+                'inquiry_data' => '',
                 'inquiry' => 1,
-                'created_date' => '2022-09-24 17:08:18',
+                'created_date' => '2024-02-28 09:41:46',
+                'updated_date' => '2024-02-28 09:41:46',
+                'neg_rate' => 1.5,
             ],
         ];
         parent::init();
