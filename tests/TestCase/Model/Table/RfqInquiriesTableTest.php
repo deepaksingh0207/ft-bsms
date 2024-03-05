@@ -25,6 +25,7 @@ class RfqInquiriesTableTest extends TestCase
      */
     protected $fixtures = [
         'app.RfqInquiries',
+        'app.BuyerSellerUsers',
     ];
 
     /**

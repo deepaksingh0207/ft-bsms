@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Home Controller
@@ -251,7 +252,11 @@ class DealerController extends AppController
             $this->set('rfq_inquiry', $RfqInquiry);
 
         }  else if($userType == 'buyer')  {
-                $results = $this->RfqInquiries->find()->where(['rfq_id' => $id])->contain('BuyerSellerUsers')->toArray();
+                $results = $this->RfqInquiries->find()
+                ->select(['RfqInquiries.id', 'RfqInquiries.rfq_id', 'RfqInquiries.seller_id', 'RfqInquiries.qty', 'RfqInquiries.rate', 'RfqInquiries.discount', 'RfqInquiries.sub_total', 'RfqInquiries.delivery_date', 'RfqInquiries.inquiry_data', 'RfqInquiries.inquiry', 'RfqInquiries.created_date', 'RfqInquiries.updated_date', 'RfqInquiries.neg_rate', 'BuyerSellerUsers.company_name'])
+                ->innerJoin(['BuyerSellerUsers' => 'buyer_seller_users'], ['BuyerSellerUsers.id = RfqInquiries.seller_id'])
+                ->where(['rfq_id' => $id])
+                ->toArray();
 
                 /*$data = array();
                 foreach($results as &$result) {
@@ -610,37 +615,102 @@ class DealerController extends AppController
         $this->set(compact('rfqRespondedDetails', 'rfqDetails', 'products'));
     }
 
-    public function inquiry($id=null) {
-        $session = $this->getRequest()->getSession();
-        if(!$session->check('user.id')) {
-            return $this->redirect(array('action' => 'login'));
-        }
-        $session = $this->getRequest()->getSession();
-        $userType = $session->read('user.user_type');
-        if($userType == 'seller') {
-            if($this->request->is('post')) {
-                //print_r($this->request->getData()); exit;
+    public function profile($id=null) {
+
+    }
+
+    public function upload($id=null) {
+        if($this->request->is('post')) {
             
+        }
+    }
+    public function inquiry($id = null)
+    {
+        $session = $this->getRequest()->getSession();
+
+        if (!$session->check('user.id')) {
+            return $this->redirect(['action' => 'login']);
+        }
+
+        $userType = $session->read('user.user_type');
+
+        if ($userType == 'seller') {
+            if ($this->request->is(['post', 'put'])) {
                 $this->loadModel('RfqInquiries');
-                $request = array();
-                $request['rfq_id'] = $id;
-                $request['seller_id'] = $session->read('user.id');
+                $request = [
+                    'rfq_id' => $id,
+                    'seller_id' => $session->read('user.id'),
+                ];
+
                 $RfqInquiry = $this->RfqInquiries->find()->where($request)->first();
+
+                if (empty($RfqInquiry)) {
+                    $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
+                    $RfqInquiry->rfq_id = $id;
+                    $RfqInquiry->seller_id = $session->read('user.id');
+                }
+
                 $RfqInquiry->inquiry = 1;
                 $RfqInquiry->qty = $this->request->getData('qty');
                 $RfqInquiry->rate = $this->request->getData('rate');
                 $RfqInquiry->sub_total = $this->request->getData('sub_total');
                 $RfqInquiry->delivery_date = $this->request->getData('delivery_date');
-                
-                if($this->RfqInquiries->save($RfqInquiry)) {
-                    $this->Flash->success(__('Inquiry send to Buyer.'));
+                $RfqInquiry->discount = $this->request->getData('discount');
+
+                // $uploadedFile = $this->request->getData('fileInput');
+                // if ($uploadedFile->getSize() > 0) {
+                //     $tmpFileName = $uploadedFile->getStream()->getMetadata('uri');
+
+                //     $spreadsheet = IOFactory::load($tmpFileName);
+                //     $excelData = $spreadsheet->getActiveSheet()->toArray();
+
+                //     debug($excelData);
+
+                //     // Process and save the Excel data to the database
+                //     foreach ($excelData as $row) {
+                //         $entityData = [
+                //             'rfq_id' => $id,
+                //             'seller_id' => $session->read('user.id'),
+                //             'inquiry' => 1,
+                //             'qty' => isset($row[0]) ? (float) $row[0] : '', 
+                //             'rate' => isset($row[1]) ? (float) $row[1] : null, 
+                //             'delivery_date' => isset($row[2]) ? date('Y-m-d', strtotime(trim($row[2]))): null,
+                //             'discount' => isset($row[3]) ? (float) $row[3] : null,
+                //         ];
+
+                //         // debug($entityData);
+                //         echo'<pre>'; print_r($entityData);
+                //         // Create an entity
+                //         $rfqInquiryEntity = $this->RfqInquiries->newEmptyEntity();
+                //         $rfqInquiryEntity = $this->RfqInquiries->patchEntity($rfqInquiryEntity, $entityData);
+                //         exit;
+
+                //         debug($rfqInquiryEntity->getErrors());
+
+                //         // Save the entity
+                //         if ($this->RfqInquiries->save($rfqInquiryEntity)) {
+                //             debug("Entity saved successfully");
+                //         } else {
+                //             debug("Error saving entity");
+                //         }
+                //     }
+
+                //     $this->Flash->success(__('Excel file uploaded and data saved.'));
+                // }
+
+                // Save the manually entered data after processing Excel data
+                if ($this->RfqInquiries->save($RfqInquiry)) {
+                    $this->Flash->success(__('Inquiry sent to Buyer.'));
                     return $this->redirect(['action' => 'productlist']);
+                } else {
+                    $this->Flash->error(__('Error saving inquiry.'));
                 }
             }
         }
 
         $this->set('userType', $userType);
     }
+
 
     public function search(){
 

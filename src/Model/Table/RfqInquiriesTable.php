@@ -40,12 +40,6 @@ class RfqInquiriesTable extends Table
         $this->setTable('rfq_inquiries');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('BuyerSellerUsers', [
-            'foreignKey' => 'seller_id',
-            'joinType' => 'INNER',
-        ]);
-
     }
 
     /**
@@ -67,12 +61,43 @@ class RfqInquiriesTable extends Table
             ->notEmptyString('seller_id');
 
         $validator
+            ->decimal('qty')
+            ->allowEmptyString('qty');
+
+        $validator
+            ->decimal('rate')
+            ->allowEmptyString('rate');
+
+        $validator
+            ->decimal('discount')
+            ->notEmptyString('discount');
+
+        $validator
+            ->decimal('sub_total')
+            ->notEmptyString('sub_total');
+
+        $validator
+            ->date('delivery_date')
+            ->allowEmptyDate('delivery_date');
+
+        $validator
+            ->allowEmptyString('inquiry_data');
+
+        $validator
             ->boolean('inquiry')
             ->allowEmptyString('inquiry');
 
         $validator
             ->dateTime('created_date')
             ->notEmptyDateTime('created_date');
+
+        $validator
+            ->dateTime('updated_date')
+            ->notEmptyDateTime('updated_date');
+
+        $validator
+            ->decimal('neg_rate')
+            ->allowEmptyString('neg_rate');
 
         return $validator;
     }
@@ -86,7 +111,7 @@ class RfqInquiriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['rfq_id', 'seller_id']), ['errorField' => 'rfq_id']);
+        $rules->add($rules->isUnique(['seller_id', 'rfq_id']), ['errorField' => 'seller_id']);
 
         return $rules;
     }

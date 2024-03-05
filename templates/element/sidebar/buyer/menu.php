@@ -31,7 +31,7 @@ $dashactive = ($controller == 'dealer' && $action == 'dashboard') ? 'active' : '
 </li>
 
 <li class="nav-item menu-open">
-    <?= $this->Html->link(__('<i class="fa fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'Profiles', 'action' => 'profile'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+    <?= $this->Html->link(__('<i class="fa fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'dealer', 'action' => 'profile'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
 <!-- 
