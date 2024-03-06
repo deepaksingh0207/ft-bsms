@@ -9,6 +9,8 @@
         margin-left: 14px
     }
 
+    .comp_table {position: relative;}
+
     .table tbody td {
         padding: 0.75rem 1.5rem !important;
     }
@@ -39,11 +41,15 @@
         left: 14%;
         z-index: 2;
     }
-    #compareModal .table tbody td { padding: 0.75rem !important;}
+    /* #compareModal .table tbody td { padding: 0.75rem !important;} */
     #compareModal .modal-dialog { max-width: 800px !important;}
     #compareModal table th, #compareModal table td,#compareModal .table tbody td{
-        padding-top: .50rem !important;
-        padding-bottom: .50rem !important;
+        padding-top: .45rem !important;
+        padding-bottom: .45rem !important;
+    }
+
+    #compareModal td, #compareModal th {
+        height: 42px !important;
     }
 
 </style>
@@ -169,7 +175,11 @@
                             
                                             <tr>
                                                 <td>
-                                                <input type="checkbox" name="compareCheckbox[]" value="<?= $val['unique_identifier'] ?>">
+                                                <?php if (!$val->inquiry): ?>
+                                                    <input type="checkbox" disabled name="compareCheckbox[]" value="<?= $val['unique_identifier'] ?>">
+                                                    <?php else: ?>
+                                                    <input type="checkbox" name="compareCheckbox[]" value="<?= $val['unique_identifier'] ?>">
+                                                    <?php endif; ?>
                                                 </td>
                                                 <td>
                                                     <?= $rfqDetails->rfq_no ?>
@@ -216,8 +226,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                        <div class="modal-body">
-                                            <table class="table table-bordered">
+                                        <div class="table-responsive modal-body">
+                                            <table class="comp_table table table-bordered">
                                                 <thead>
                                                 </thead>
                                                 <tbody id="modalTableBody">
@@ -355,22 +365,23 @@
 <script>
     $(document).ready(function () {
         $('input[name="compareCheckbox[]"]').on('change', function () {
-            updateCompareButton();
-        });
+        updateCompareButton();
+    });
 
-        $('#selectAllCheckbox').on('change', function () {
-            $('input[name="compareCheckbox[]"]').prop('checked', $(this).prop('checked'));
-            updateCompareButton();
-        });
+    $('#selectAllCheckbox').on('change', function () {
+        // Select only enabled checkboxes
+        $('input[name="compareCheckbox[]"]:not(:disabled)').prop('checked', $(this).prop('checked'));
+        updateCompareButton();
+    });
 
-        $('#compareButton').on('click', function () {
-            updateModalContent();
-        });
+    $('#compareButton').on('click', function () {
+        updateModalContent();
+    });
 
-        function updateCompareButton() {
-            var enableButton = $('input[name="compareCheckbox[]"]:checked').length > 0;
-            $('#compareButton').prop('disabled', !enableButton);
-        }
+    function updateCompareButton() {
+        var enableButton = $('input[name="compareCheckbox[]"]:checked:not(:disabled)').length > 0;
+        $('#compareButton').prop('disabled', !enableButton);
+    }
 
         function updateModalContent() {
             // Clear the existing content
@@ -378,7 +389,7 @@
 
             // Append the header row
             $('#modalTableBody').append(`
-                <tr>
+                <tr class"comparison_head" style="width:240px">
                     <th>Company</th>
                     <th>Location</th>
                     <th>Qty</th>
@@ -407,7 +418,7 @@
                 var calculatedAmt = parseFloat(amt) - (parseFloat(discount) * parseFloat(qty));
 
                 $('#modalTableBody').append(`
-                    <tr>
+                    <tr class="comparison_data">
                         <td>${company}</td>
                         <td>Thane</td>
                         <td>${qty}</td>
