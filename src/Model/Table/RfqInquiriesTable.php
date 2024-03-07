@@ -70,11 +70,11 @@ class RfqInquiriesTable extends Table
 
         $validator
             ->decimal('discount')
-            ->notEmptyString('discount');
+            ->allowEmptyString('discount');
 
         $validator
             ->decimal('sub_total')
-            ->notEmptyString('sub_total');
+            ->allowEmptyString('sub_total');
 
         $validator
             ->date('delivery_date')

@@ -253,11 +253,11 @@ class DealerController extends AppController
 
         }  else if($userType == 'buyer')  {
                 $results = $this->RfqInquiries->find()
-                ->select(['RfqInquiries.id', 'RfqInquiries.rfq_id', 'RfqInquiries.seller_id', 'RfqInquiries.qty', 'RfqInquiries.rate', 'RfqInquiries.discount', 'RfqInquiries.sub_total', 'RfqInquiries.delivery_date', 'RfqInquiries.inquiry_data', 'RfqInquiries.inquiry', 'RfqInquiries.created_date', 'RfqInquiries.updated_date', 'RfqInquiries.neg_rate', 'BuyerSellerUsers.company_name'])
+                ->select(['RfqInquiries.id', 'RfqInquiries.inquiry','RfqInquiries.rfq_id', 'RfqInquiries.seller_id', 'RfqInquiries.qty', 'RfqInquiries.rate', 'RfqInquiries.discount', 'RfqInquiries.sub_total', 'RfqInquiries.delivery_date', 'RfqInquiries.inquiry_data', 'RfqInquiries.inquiry', 'RfqInquiries.created_date', 'RfqInquiries.updated_date', 'RfqInquiries.neg_rate', 'BuyerSellerUsers.company_name'])
                 ->innerJoin(['BuyerSellerUsers' => 'buyer_seller_users'], ['BuyerSellerUsers.id = RfqInquiries.seller_id'])
                 ->where(['rfq_id' => $id])
                 ->toArray();
-
+                
                 /*$data = array();
                 foreach($results as &$result) {
                     $t = array();

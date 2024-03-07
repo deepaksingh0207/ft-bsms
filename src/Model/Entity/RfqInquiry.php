@@ -13,16 +13,14 @@ use Cake\ORM\Entity;
  * @property int $seller_id
  * @property string|null $qty
  * @property string|null $rate
- * @property string $discount
- * @property string $sub_total
+ * @property string|null $discount
+ * @property string|null $sub_total
  * @property \Cake\I18n\FrozenDate|null $delivery_date
  * @property array|null $inquiry_data
  * @property bool|null $inquiry
  * @property \Cake\I18n\FrozenTime $created_date
  * @property \Cake\I18n\FrozenTime $updated_date
  * @property string|null $neg_rate
- *
- * @property \App\Model\Entity\BuyerSellerUser $buyer_seller_user
  */
 class RfqInquiry extends Entity
 {
@@ -48,6 +46,5 @@ class RfqInquiry extends Entity
         'created_date' => true,
         'updated_date' => true,
         'neg_rate' => true,
-        'buyer_seller_user' => true,
     ];
 }
