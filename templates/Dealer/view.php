@@ -204,7 +204,10 @@
                                                     <?= $val['created_date'] ?>
                                                 </td>
                                                 <td>
-                                                    <?= $val['discount'] ?>
+                                                    <?php
+                                                    $discountValue = !empty($val['discount']) ? $val['discount'] : '0';
+                                                    echo $discountValue;
+                                                    ?>
                                                 </td>
                                             </tr>
                             
