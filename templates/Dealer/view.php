@@ -48,9 +48,6 @@
         padding-bottom: .45rem !important;
     }
 
-    #compareModal td, #compareModal th {
-        height: 42px !important;
-    }
 
 </style>
 
@@ -226,14 +223,16 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                        <div class="table-responsive modal-body">
-                                            <table class="comp_table table table-bordered">
-                                                <thead>
-                                                </thead>
-                                                <tbody id="modalTableBody">
-                            
-                                                </tbody>
-                                            </table>
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="comp_table table table-bordered">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody id="modalTableBody">
+                                
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <textarea style="display:none" id="remark" name="myTextarea" rows="2" cols="90" placeholder="Add Remark"></textarea>
                                             
 
@@ -318,7 +317,7 @@
                                 </tr>
                                 <tr>
                                     <th>Discount</th>
-                                    <td><input type="text" class="form-control" id="discount" name="discount" required /></td>
+                                    <td><input type="text" class="form-control" id="discount" name="discount"/></td>
                                 </tr>
                                 
                                 <tr>
@@ -389,20 +388,21 @@
 
             // Append the header row
             $('#modalTableBody').append(`
-                <tr class"comparison_head" style="width:240px">
+                <tr style="width:240px;position:sticky;left:0;z-index:2;background-color:#fff;">
                     <th>Company</th>
                     <th>Location</th>
                     <th>Qty</th>
                     <th>Offered Rate</th>
+                    <th>Neg Rate</th>
                     <th>Amt</th>
                     <th>Discount(Per Qty)</th>
                     <th class="sub_total">Sub Total-A</th>
-                    <br><br>
                     <th>Packing and Forwarding</th>
                     <th>GST @ 18%</th>
                     <th>FREIGHT CHARGES</th>
-                    <th>Delivery</th>
                     <th class="sub_total">Sub Total-B</th>
+                    <th>Delivery</th>
+                    <th>Payment Term</th>
                     <th>Select Vendor</th>
                 </tr>
             `);
@@ -418,11 +418,12 @@
                 var calculatedAmt = parseFloat(amt) - (parseFloat(discount) * parseFloat(qty));
 
                 $('#modalTableBody').append(`
-                    <tr class="comparison_data">
-                        <td>${company}</td>
+                    <tr class="comparison_data" style="max-width:200px;">
+                        <td style="background-color:#A6E5F4;">${company}</td>
                         <td>Thane</td>
                         <td>${qty}</td>
                         <td>${rate}</td>
+                        <td>1000.00</td>
                         <td>${amt}</td>
                         <td>${discount}</td>
                         <td class="sub_total">${calculatedAmt}</td>
@@ -430,8 +431,9 @@
                         <td>0.00</td>
                         <td>1620.00</td>
                         <td>0.00</td>
-                        <td>1 Week</td>
                         <td class="sub_total">10160</td> 
+                        <td>1 Week</td>
+                        <td>100 % With in 30 Days</td>
                         <td><input type="checkbox">
                     </tr>
                 `);
@@ -467,7 +469,7 @@
         // Close the modal
         $('#compareModal').modal('hide');
         // Display a toast message
-        showToast('Vendor selected by Buyer1!');
+        showToast('Vendor Selected');
     });
 
     // Function to enable/disable the "Continue" button based on textarea content
@@ -491,5 +493,13 @@
 
 
 
+    });
+
+    $(document).ready(function () {
+        $('form').on('submit', function () {
+            if ($('#discount').val() === '') {
+                $('#discount').val('0');
+            }
+        });
     });
 </script>
